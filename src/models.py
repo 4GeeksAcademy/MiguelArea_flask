@@ -4,6 +4,8 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 db = SQLAlchemy()
 
+# --- MODELOS BASE ---
+
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
@@ -17,9 +19,7 @@ class User(db.Model):
         return {
             "id": self.id,
             "email": self.email,
-            # no incluir password por seguridad
         }
-
 
 class People(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -38,7 +38,6 @@ class People(db.Model):
             "birth_year": self.birth_year
         }
 
-
 class Planet(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(100), nullable=False)
@@ -56,6 +55,7 @@ class Planet(db.Model):
             "population": self.population
         }
 
+# --- FAVORITE (después de que Planet y People estén definidos) ---
 
 class Favorite(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
